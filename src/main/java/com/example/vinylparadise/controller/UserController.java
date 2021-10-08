@@ -40,17 +40,4 @@ public class UserController {
         // Delete User
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
