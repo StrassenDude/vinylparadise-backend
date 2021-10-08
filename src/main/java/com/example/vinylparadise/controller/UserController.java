@@ -4,6 +4,7 @@ package com.example.vinylparadise.controller;
 import com.example.vinylparadise.model.User;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 
 @RestController
@@ -25,12 +26,12 @@ public class UserController {
     }
 
     @PostMapping()
-    public void createUser (@RequestBody User newUser){
+    public void createUser (@RequestBody @Valid User newUser){
         // create new User
     }
 
     @PutMapping("/{userId}")
-    public void updateUser (@PathVariable int userId){
+    public void updateUser (@PathVariable @Valid int userId){
         //  Update User
     }
 

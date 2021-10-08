@@ -1,10 +1,18 @@
 package com.example.vinylparadise.model;
 
+import org.springframework.data.annotation.Id;
+
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 
 public class Catagory {
+
+    @Id
     private int id;
+
+    @NotBlank
     private String name;
+
     private ArrayList<Vinyl> vinyls;
 
 

@@ -1,10 +1,18 @@
 package com.example.vinylparadise.model;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.ArrayList;
 
 public class Shop {
     private ArrayList<Vinyl> vinyls;
+
+    @PositiveOrZero
+    @NotBlank
     private int numberOfItemsAvailable;
+
+    @NotBlank
     private boolean available;
 
 

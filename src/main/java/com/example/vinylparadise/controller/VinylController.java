@@ -5,6 +5,7 @@ import com.example.vinylparadise.model.Catagory;
 import com.example.vinylparadise.model.Vinyl;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 
 @RestController
@@ -23,12 +24,12 @@ public class VinylController {
     }
 
     @PostMapping()
-    public void createVinyl (@RequestBody Vinyl newVinyl){
+    public void createVinyl (@RequestBody @Valid Vinyl newVinyl){
         //create new Vinyl (Admin only)
     }
 
     @PutMapping("/{artNr}")
-    public void updateVinyl (@PathVariable int artNr){
+    public void updateVinyl (@PathVariable @Valid int artNr){
         //Update vinyl (admin only)
     }
 

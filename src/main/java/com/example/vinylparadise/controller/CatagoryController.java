@@ -5,6 +5,7 @@ import com.example.vinylparadise.model.Catagory;
 import com.example.vinylparadise.model.Vinyl;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 
 @RestController
@@ -26,12 +27,12 @@ public class CatagoryController {
     }
 
     @PostMapping()
-    public void createCatagory (@RequestBody Catagory catagory){
+    public void createCatagory (@RequestBody @Valid Catagory catagory){
         // create new Catagory
     }
 
     @PutMapping("/{catagoryId}")
-    public void updateCatagory (@PathVariable int catagoryId){
+    public void updateCatagory (@PathVariable @Valid int catagoryId){
         //  Update an Catagory
     }
 

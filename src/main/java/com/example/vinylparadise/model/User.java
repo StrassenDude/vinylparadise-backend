@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
@@ -25,9 +26,16 @@ public class User {
     @Column(nullable = false)
     private String role = "ROLE_USER"; // TODO: 10.09.2021 get&set gebraucht?
 
+    @NotBlank
     private String firstName;
+
+    @NotBlank
     private String lastName;
+
+    @NotBlank
     private int age;
+
+    @NotBlank
     private Date gebDat;
 
 

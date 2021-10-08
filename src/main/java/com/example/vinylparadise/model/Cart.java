@@ -1,11 +1,24 @@
 package com.example.vinylparadise.model;
 
+import org.springframework.data.annotation.Id;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.ArrayList;
 
 public class Cart {
+
     private ArrayList<Vinyl> vinyls;
+
+    @PositiveOrZero //ToDo: ist 0 in Positiv inkludiert??
     private int numberOfItemsCart;
+
+    @PositiveOrZero
+    @NotBlank
     private double PriceTotal;
+
+    @Id
     private int cartId;
 
     public Cart() {

@@ -1,13 +1,27 @@
 package com.example.vinylparadise.model;
 
+import org.springframework.data.annotation.Id;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Order {
      private ArrayList<Vinyl> vinyls;
+
+     @NotBlank
+     @Positive
      private int numberOfItemsOrdered;
+
+     @NotBlank
+     @Positive
      private double priceTotal;
+
+     @NotBlank
      private Date orderDate;
+
+     @Id
      private int orderId;
 
 

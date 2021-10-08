@@ -1,14 +1,29 @@
 package com.example.vinylparadise.model;
 
+import org.springframework.data.annotation.Id;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import java.util.ArrayList;
 
 public class Vinyl {
 
+    @NotBlank
     private String name;
+
+    @Positive
     private double price;
+
+    @NotBlank
     private String artist;
+
+    @Positive
     private int tracks;
+
+    @Id
     private int artNr;
+
+
     private ArrayList<Catagory> catagories;
 
     public Vinyl() {

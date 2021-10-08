@@ -3,6 +3,8 @@ package com.example.vinylparadise.controller;
 import com.example.vinylparadise.model.Cart;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/cart")
 public class CartController {
@@ -15,12 +17,12 @@ public class CartController {
 }
 
 @PostMapping()
-    public void createNewCart (@RequestBody Cart newCart){
+    public void createNewCart (@RequestBody @Valid Cart newCart){
     // New cart created when logged in user is adds item
 }
 
 @PutMapping("/{userId}")
-    public void updateCart (@PathVariable int userId){
+    public void updateCart (@PathVariable @Valid int userId){
     ///update cart ( add / remove / change amount)
 }
 

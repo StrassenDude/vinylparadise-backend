@@ -5,6 +5,7 @@ import com.example.vinylparadise.model.Order;
 import com.example.vinylparadise.model.User;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 
 @RestController
@@ -24,12 +25,12 @@ public class OrderController {
     }
 
     @PostMapping()
-    public void createOrder (@RequestBody Order newOrder){
+    public void createOrder (@RequestBody @Valid Order newOrder){
         // create new Order
     }
 
     @PutMapping("/{orderId}")
-    public void updateOrder (@PathVariable int orderId){
+    public void updateOrder (@PathVariable @Valid int orderId){
         //  Update an Order
     }
 
