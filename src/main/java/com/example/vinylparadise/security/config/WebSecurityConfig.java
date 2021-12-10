@@ -15,13 +15,16 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
 import javax.servlet.http.HttpServletResponse;
+
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CostumUserDetailService costumUserDetailService;
+
 
     public WebSecurityConfig(CostumUserDetailService costumUserDetailService) {
         this.costumUserDetailService = costumUserDetailService;
@@ -64,6 +67,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/home") //todo
+                .permitAll();
+
+        http
+                .authorizeRequests()
+                .antMatchers( "/vinyls")
                 .permitAll();
 
         http

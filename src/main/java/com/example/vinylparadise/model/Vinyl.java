@@ -1,12 +1,16 @@
 package com.example.vinylparadise.model;
 
-import org.springframework.data.annotation.Id;
-
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.util.ArrayList;
 
+@Entity
 public class Vinyl {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@Column(name = "id", nullable = false)
+    private Long id;
 
     @NotBlank
     private String name;
@@ -20,22 +24,21 @@ public class Vinyl {
     @Positive
     private int tracks;
 
-    @Id
-    private int artNr;
 
 
-    private ArrayList<Catagory> catagories;
+    //private ArrayList<Catagory> catagories;
 
     public Vinyl() {
     }
 
-    public Vinyl(String name, double price, String artist, int tracks, int artNr, ArrayList<Catagory> catagories) {
+    public Vinyl(String name, double price, String artist, int tracks) {
+        //this.id = id;
         this.name = name;
         this.price = price;
         this.artist = artist;
         this.tracks = tracks;
-        this.artNr = artNr;
-        this.catagories = catagories;
+
+        //this.catagories = catagories;
     }
 
     public String getName() {
@@ -70,22 +73,23 @@ public class Vinyl {
         this.tracks = tracks;
     }
 
-
-    public int getArtNr() {
-        return artNr;
+    public Long getId() {
+        return id;
     }
 
-    public void setArtNr(int artNr) {
-        this.artNr = artNr;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public ArrayList<Catagory> getCatagories() {
+
+
+    /*public ArrayList<Catagory> getCatagories() {
         return catagories;
     }
 
     public void setCatagories(ArrayList<Catagory> catagories) {
         this.catagories = catagories;
-    }
+    }*/
 }
 
 
