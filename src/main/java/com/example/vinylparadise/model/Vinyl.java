@@ -24,6 +24,10 @@ public class Vinyl {
     @Positive
     private int tracks;
 
+    @NotBlank
+    private String category;
+
+
 
 
     //private ArrayList<Catagory> catagories;
@@ -31,14 +35,23 @@ public class Vinyl {
     public Vinyl() {
     }
 
-    public Vinyl(String name, double price, String artist, int tracks) {
+    public Vinyl(String name, double price, String artist, int tracks, String category) {
         //this.id = id;
         this.name = name;
         this.price = price;
         this.artist = artist;
         this.tracks = tracks;
+        this.category = category;
 
         //this.catagories = catagories;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getName() {

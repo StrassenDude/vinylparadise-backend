@@ -1,8 +1,7 @@
 package com.example.vinylparadise.controller;
 
 
-import com.example.vinylparadise.model.Order;
-import com.example.vinylparadise.model.User;
+import com.example.vinylparadise.model.UserOrder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,19 +12,19 @@ import java.util.ArrayList;
 public class OrderController {
 
     @GetMapping()
-    public ArrayList<Order> getOrders (){
+    public ArrayList<UserOrder> getOrders (){
         return null;
         // returns all Orders (for Admin)
     }
 
     @GetMapping("/{orderId}")
-    public Order getOrder (@PathVariable int orderId){
+    public UserOrder getOrder (@PathVariable int orderId){
         return null;
         // returns one specific Orders (for Admin)
     }
 
     @PostMapping()
-    public void createOrder (@RequestBody @Valid Order newOrder){
+    public void createOrder (@RequestBody @Valid UserOrder newUserOrder){
         // create new Order
     }
 

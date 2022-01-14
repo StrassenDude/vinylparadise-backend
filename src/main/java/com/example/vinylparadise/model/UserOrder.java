@@ -1,41 +1,48 @@
 package com.example.vinylparadise.model;
 
-import org.springframework.data.annotation.Id;
-
+import javax.persistence.Column;
+import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Order {
-     private ArrayList<Vinyl> vinyls;
+@Entity
+public class UserOrder {
 
-     @NotBlank
-     @Positive
+    //private ArrayList<Vinyl> vinyls;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@Column(name = "id", nullable = false)
+    private Long id;
+
+    @NotBlank
      private int numberOfItemsOrdered;
 
      @NotBlank
-     @Positive
      private double priceTotal;
 
      @NotBlank
      private Date orderDate;
 
-     @Id
-     private int orderId;
 
 
-    public Order() {
+    public UserOrder() {
     }
 
-    public Order(ArrayList<Vinyl> vinyls, int numberOfItemsOrdered, double priceTotal, Date orderDate, int orderId) {
-        this.vinyls = vinyls;
+    public UserOrder(ArrayList<Vinyl> vinyls, int numberOfItemsOrdered, double priceTotal, Date orderDate, int orderId) {
+        //this.vinyls = vinyls;
         this.numberOfItemsOrdered = numberOfItemsOrdered;
         this.priceTotal = priceTotal;
         this.orderDate = orderDate;
-        this.orderId = orderId;
     }
 
+
+    /*
 
     public ArrayList<Vinyl> getVinyls() {
         return vinyls;
@@ -44,6 +51,16 @@ public class Order {
     public void setVinyls(ArrayList<Vinyl> vinyls) {
         this.vinyls = vinyls;
     }
+
+     */
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 
     public int getNumberOfItemsOrdered() {
         return numberOfItemsOrdered;
@@ -69,11 +86,4 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
 }
