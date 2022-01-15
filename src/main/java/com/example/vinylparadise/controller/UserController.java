@@ -2,15 +2,25 @@ package com.example.vinylparadise.controller;
 
 
 import com.example.vinylparadise.model.User;
+import com.example.vinylparadise.responseModels.UserResponse;
+import com.example.vinylparadise.security.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/User")
+@RequestMapping("/user")
 public class UserController {
 
+
+
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
 
     @GetMapping()
@@ -20,8 +30,8 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public User getUser (@PathVariable int userId){
-        return null;
+    public ResponseEntity<UserResponse> getUser(@PathVariable long userId){
+        return userService.findUserById(userId);
         // returns one specific User (for Admin)
     }
 

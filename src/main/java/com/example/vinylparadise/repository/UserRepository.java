@@ -5,4 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<User, Long> {
     User findByUserName(String userName); // TODO: 10.09.2021 findbyUsername?
+    User findByUserId(long id);
+
 }

@@ -1,12 +1,14 @@
 package com.example.vinylparadise.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -18,6 +20,9 @@ public class User {
 
     @Column(nullable = false, unique = true)
     private String userName;
+
+    @Column(nullable = false, unique = true)
+    private String email;
 
     @JsonIgnore
     @Column(nullable = false)
@@ -32,19 +37,20 @@ public class User {
     @NotBlank
     private String lastName;
 
-    @NotBlank
+    @Range(min = 1, max=150)
     private int age;
 
-    @NotBlank
+    @NotNull
     private Date gebDat;
 
 
     public User() {
     }
 
-    public User(String firstName, String lastName, int age, Date gebDat, String userName, String password) { // TODO: 10.09.2021 Builder machen
+    public User(String firstName, String lastName, String email, int age, Date gebDat, String userName, String password) { // TODO: 10.09.2021 Builder machen
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
         this.age = age;
         this.gebDat = gebDat;
         this.userName = userName;
@@ -61,6 +67,14 @@ public class User {
 
     public long getUserId() {
         return userId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setUserId(long userId) {
@@ -113,5 +127,19 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                ", gebDat=" + gebDat +
+                '}';
     }
 }
