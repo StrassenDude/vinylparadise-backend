@@ -5,6 +5,7 @@ import com.example.vinylparadise.model.Catagory;
 import com.example.vinylparadise.model.Vinyl;
 import com.example.vinylparadise.repository.VinylRepository;
 import jdk.jfr.Category;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -12,29 +13,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/vinyls")
+//@RequestMapping("/vinyls")
+@CrossOrigin(origins = "http://localhost:8080")
 public class VinylController {
 
+
+    @Autowired
     private VinylRepository vinylRepository;
 
     public VinylController(VinylRepository vinylRepository) {
         this.vinylRepository = vinylRepository;
     }
 
-    @GetMapping()
-    public Iterable<Vinyl> getVinyls(){
+    @GetMapping("/vinyls")
+    public Iterable<Vinyl> getAllVinyls(){
         return this.vinylRepository.findAll();
         //returns all Vinyls
     }
 
-    @GetMapping("/{artNr}")
-    public Vinyl getVinyl(@PathVariable int artNr){
-        return null;
+    @GetMapping("/vinyls/{id}")
+    public Vinyl getVinylById(@PathVariable Long id){
+        return vinylRepository.findVinylById(id);
     }
 
-    @PostMapping()
-    public Vinyl createVinyl (@RequestBody @Valid Vinyl newVinyl){
-        this.vinylRepository.save(newVinyl);
+    @PostMapping("/upload")
+    public @ResponseBody Vinyl createVinyl (@RequestBody @Valid Vinyl newVinyl){
+        vinylRepository.save(newVinyl);
 
         return newVinyl;
         //create new Vinyl (Admin only)

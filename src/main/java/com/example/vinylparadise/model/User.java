@@ -3,10 +3,7 @@ package com.example.vinylparadise.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Range;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -14,7 +11,7 @@ import java.util.Date;
 @Entity
 public class User {
 
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.SEQUENCE)
     @Id
     private long userId;
 
@@ -24,7 +21,7 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @JsonIgnore
+    //@JsonIgnore
     @Column(nullable = false)
     private String password;
 

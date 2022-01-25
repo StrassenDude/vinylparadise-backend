@@ -8,7 +8,7 @@ import java.util.ArrayList;
 @Entity
 public class Vinyl {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     //@Column(name = "id", nullable = false)
     private Long id;
 

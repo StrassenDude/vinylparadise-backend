@@ -2,17 +2,22 @@ package com.example.vinylparadise.controller;
 
 
 import com.example.vinylparadise.model.User;
+import com.example.vinylparadise.repository.UserRepository;
 import com.example.vinylparadise.responseModels.UserResponse;
 import com.example.vinylparadise.security.dto.UserDto;
 import com.example.vinylparadise.security.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/user")
+//@RequestMapping("/user")
+@CrossOrigin(origins = "http://localhost:8080")
 public class UserController {
 
 
@@ -23,28 +28,36 @@ public class UserController {
         this.userService = userService;
     }
 
+    @Autowired
+    private UserRepository userRepository;
 
-    @GetMapping()
-    public ArrayList<User> getUsers (){
-        return null;
-        // returns all Users (for Admin)
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @GetMapping("/user/{userId}")
+    public Optional<User> getUserById (@PathVariable Long userId){
+        return userRepository.findById(userId);
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<UserResponse> getUser(@PathVariable long userId){
-        return userService.findUserById(userId);
-        // returns one specific User (for Admin)
+    @GetMapping("/user")
+    public Iterable<User> getAllRegisteredUser() {
+        return userRepository.findAll();
     }
 
-    @GetMapping(path = "user/username/{username}")
+    @GetMapping(path = "/{username}")
     public ResponseEntity<UserResponse> getUserbyUsername(@PathVariable String username) {
         return userService.findUserByUsername(username);
     }
 
 
-    @PostMapping(path = "register")
-    public ResponseEntity<UserResponse> addUser(@RequestBody UserDto userDto) {
-        return userService.saveUser(userDto);
+    @PostMapping(path = "/registration")
+    public @ResponseBody User createUser(@RequestBody @Valid User user) {
+        userRepository.save(user);
+
+
+        String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+
+        return user;
     }
 
     @PutMapping("/{userId}")
