@@ -3,6 +3,7 @@ package com.example.vinylparadise.controller;
 
 import com.example.vinylparadise.model.User;
 import com.example.vinylparadise.responseModels.UserResponse;
+import com.example.vinylparadise.security.dto.UserDto;
 import com.example.vinylparadise.security.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,9 +36,15 @@ public class UserController {
         // returns one specific User (for Admin)
     }
 
-    @PostMapping()
-    public void createUser (@RequestBody @Valid User newUser){
-        // create new User
+    @GetMapping(path = "user/username/{username}")
+    public ResponseEntity<UserResponse> getUserbyUsername(@PathVariable String username) {
+        return userService.findUserByUsername(username);
+    }
+
+
+    @PostMapping(path = "register")
+    public ResponseEntity<UserResponse> addUser(@RequestBody UserDto userDto) {
+        return userService.saveUser(userDto);
     }
 
     @PutMapping("/{userId}")
