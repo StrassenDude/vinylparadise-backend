@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -119,11 +120,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/vinyls/category/**").permitAll();
-
         http
                 .authorizeRequests()
-                .antMatchers("/admin") //todo 10.09.2021
-                .access("hasRole('ROLE_ADMIN')");
+                .antMatchers("/admin/categories/assign/**").permitAll();
+
 
         http    //lock every route
                 .authorizeRequests()
@@ -141,8 +141,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .logout()
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 .logoutUrl("/logout")
-                .permitAll();
+                .logoutSuccessUrl("")
+                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK));
+        http
+                .cors();
 
         http
                 .addFilterAt(

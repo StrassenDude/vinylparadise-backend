@@ -1,7 +1,10 @@
 package com.example.vinylparadise.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,17 +19,18 @@ public class Category {
     @NotBlank
     private String categoryName;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL)
     private Set<Vinyl> vinyls = new HashSet<Vinyl>();
 
     public Category(){
         super();
     }
-    public Category(@NotBlank Long categoryId) {
+    public Category(@NotNull Long categoryId) {
         this.categoryId = categoryId;
     }
 
-    public Category(@NotBlank Long categoryId, @NotBlank String categoryName) {
+    public Category(@NotNull Long categoryId, @NotBlank String categoryName) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
     }
@@ -58,5 +62,14 @@ public class Category {
 
     public void setVinyls(Set<Vinyl> vinyls) {
         this.vinyls = vinyls;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "categoryId=" + categoryId +
+                ", categoryName='" + categoryName + '\'' +
+                ", vinyls=" + vinyls +
+                '}';
     }
 }

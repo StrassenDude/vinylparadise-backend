@@ -24,10 +24,16 @@ public class CatagoryController {
     }
 
 
-    @GetMapping("/categories/{categoryName}")
-    public Category getCatagories(@PathVariable String categoryName ){
+    @GetMapping("/categories/categoryName/{categoryName}")
+    public Category getCatagoriesbyCategoryName(@PathVariable String categoryName ){
         return categoryRepository.findByCategoryName(categoryName);
-        // returns one spezific Category
+        // returns one spezific Category by name
+    }
+
+    @GetMapping("/categories/categoryId/{categoryId}")
+    public Category getCategoriesByCategoryId(@PathVariable Long categoryId ){
+        return categoryRepository.findByCategoryId(categoryId);
+        // returns one spezific Category by id
     }
 
     @PostMapping("/admin/categories/add")
@@ -39,14 +45,22 @@ public class CatagoryController {
         // create new Catagory
     }
 
-    @PutMapping("/{catagoryId}")
-    public void updateCatagory (@PathVariable @Valid int catagoryId){
+    @PutMapping("/admin/categories/{catagoryId}")
+    public void updateCatagory (@PathVariable @Valid Long catagoryId, @Valid @RequestBody Category categoryDetails){
+        Category category = categoryRepository.findByCategoryId(catagoryId);
+
+        assert category != null;
+        category.setCategoryName(categoryDetails.getCategoryName());
         //  Update an Catagory
     }
 
-    @DeleteMapping("/{catagoryId}")
-    public void deleteCatagory (@PathVariable int catagoryId){
-        // Delete Catagory
+    @DeleteMapping("/admin/categories/{catagoryId}") // Delete Catagory
+    public String deleteCatagory (@PathVariable Long catagoryId){
+
+        categoryRepository.deleteById(catagoryId);
+        return "Category" + catagoryId + " was deleted";
+
+
     }
 
 

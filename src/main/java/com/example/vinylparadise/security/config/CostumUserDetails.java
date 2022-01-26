@@ -13,7 +13,7 @@ import java.util.List;
 public class CostumUserDetails implements UserDetails {
 
 
-    public final User user;
+    private final User user;
 
     public CostumUserDetails(User user) {
         this.user = user;
@@ -33,7 +33,7 @@ public class CostumUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.getUsername();
+        return this.user.getUserName();
     }
 
     @Override

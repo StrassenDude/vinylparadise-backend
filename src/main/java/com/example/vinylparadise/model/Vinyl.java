@@ -13,26 +13,27 @@ public class Vinyl {
     private Long id;
 
     @NotBlank
+    @Column(nullable = false)
     private String name;
 
     @Positive
+    @Column(nullable = false)
     private double price;
 
     @NotBlank
+    @Column(nullable = false)
     private String artist;
 
     @Positive
+    @Column(nullable = false)
     private int tracks;
 
-    @NotBlank
+
     @ManyToOne
-    @JoinColumn(name = "categoryId")
+    @JoinColumn(name = "category_Id")
     private Category category;
 
 
-
-
-    //private ArrayList<Catagory> catagories;
 
     public Vinyl() {
     }
@@ -45,7 +46,6 @@ public class Vinyl {
         this.tracks = tracks;
         this.category = category;
 
-        //this.catagories = catagories;
     }
 
     public Category getCategory() {
@@ -96,15 +96,18 @@ public class Vinyl {
         this.id = id;
     }
 
-
-
-    /*public ArrayList<Catagory> getCatagories() {
-        return catagories;
+    @Override
+    public String toString() {
+        return "Vinyl{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", artist='" + artist + '\'' +
+                ", tracks=" + tracks +
+                ", category=" + category +
+                '}';
     }
 
-    public void setCatagories(ArrayList<Catagory> catagories) {
-        this.catagories = catagories;
-    }*/
 }
 
 
