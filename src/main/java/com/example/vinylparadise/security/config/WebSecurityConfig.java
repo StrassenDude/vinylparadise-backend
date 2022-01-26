@@ -89,7 +89,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
         http
                 .authorizeRequests()
-                .antMatchers( "/upload")
+                .antMatchers( "/admin/vinyls/add")
+                .permitAll();
+
+        http
+                .authorizeRequests()
+                .antMatchers( "/admin/categories/add")
                 .permitAll();
 
 
@@ -108,6 +113,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/vinyls/**").permitAll();
+        http
+                .authorizeRequests()
+                .antMatchers("/categories/**").permitAll();
+        http
+                .authorizeRequests()
+                .antMatchers("/vinyls/category/**").permitAll();
 
         http
                 .authorizeRequests()

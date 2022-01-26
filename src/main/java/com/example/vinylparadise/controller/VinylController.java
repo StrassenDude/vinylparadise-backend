@@ -1,16 +1,14 @@
 package com.example.vinylparadise.controller;
 
 
-import com.example.vinylparadise.model.Catagory;
+import com.example.vinylparadise.model.Category;
 import com.example.vinylparadise.model.Vinyl;
 import com.example.vinylparadise.repository.VinylRepository;
-import jdk.jfr.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 //@RequestMapping("/vinyls")
@@ -36,7 +34,12 @@ public class VinylController {
         return vinylRepository.findVinylById(id);
     }
 
-    @PostMapping("/upload")
+    @GetMapping("/vinyls/category/{category}")
+    public Iterable<Vinyl> getVinylsByCategory(@PathVariable String category){
+        return vinylRepository.findAll();
+    }
+
+    @PostMapping("/admin/vinyls/add")
     public @ResponseBody Vinyl createVinyl (@RequestBody @Valid Vinyl newVinyl){
         vinylRepository.save(newVinyl);
 
@@ -56,7 +59,7 @@ public class VinylController {
 
 
     @GetMapping("/{vinylId}")
-    public ArrayList<Catagory> getVinylCategories(@PathVariable int vinylId){
+    public ArrayList<Category> getVinylCategories(@PathVariable int vinylId){
         return null;
         // returns all categories of one vinyl
     }

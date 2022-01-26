@@ -44,11 +44,6 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping(path = "/{username}")
-    public ResponseEntity<UserResponse> getUserbyUsername(@PathVariable String username) {
-        return userService.findUserByUsername(username);
-    }
-
 
     @PostMapping(path = "/registration")
     public @ResponseBody User createUser(@RequestBody @Valid User user) {

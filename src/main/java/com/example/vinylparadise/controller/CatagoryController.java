@@ -1,33 +1,41 @@
 package com.example.vinylparadise.controller;
 
 
-import com.example.vinylparadise.model.Catagory;
-import com.example.vinylparadise.model.Vinyl;
+import com.example.vinylparadise.model.Category;
+import com.example.vinylparadise.repository.CategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/Catagories")
+//@RequestMapping("/catagories")
+@CrossOrigin(origins = "http://localhost:8080")
 public class CatagoryController {
 
+    @Autowired
+    private CategoryRepository categoryRepository;
 
-    @GetMapping()
-    public ArrayList<Catagory> catagories(){
-        return null;
+
+    @GetMapping("/categories")
+    public Iterable<Category> getAllCatagories(){
+        return categoryRepository.findAll();
         // returns a List of all catagories available
     }
 
 
-    @GetMapping("/{catagoryId}")
-    public ArrayList<Vinyl> getCatagories(@PathVariable int catagoryId ){
-        return null;
-        // returns all vinyls of one Catagory
+    @GetMapping("/categories/{categoryName}")
+    public Category getCatagories(@PathVariable String categoryName ){
+        return categoryRepository.findByCategoryName(categoryName);
+        // returns one spezific Category
     }
 
-    @PostMapping()
-    public void createCatagory (@RequestBody @Valid Catagory catagory){
+    @PostMapping("/admin/categories/add")
+    public @ResponseBody Category createCatagory (@RequestBody @Valid Category newCatagory){
+        categoryRepository.save(newCatagory);
+        System.out.println(newCatagory);
+
+        return newCatagory;
         // create new Catagory
     }
 

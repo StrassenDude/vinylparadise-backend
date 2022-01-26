@@ -25,7 +25,9 @@ public class Vinyl {
     private int tracks;
 
     @NotBlank
-    private String category;
+    @ManyToOne
+    @JoinColumn(name = "categoryId")
+    private Category category;
 
 
 
@@ -35,7 +37,7 @@ public class Vinyl {
     public Vinyl() {
     }
 
-    public Vinyl(String name, double price, String artist, int tracks, String category) {
+    public Vinyl(String name, double price, String artist, int tracks, Category category) {
         //this.id = id;
         this.name = name;
         this.price = price;
@@ -46,11 +48,11 @@ public class Vinyl {
         //this.catagories = catagories;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
