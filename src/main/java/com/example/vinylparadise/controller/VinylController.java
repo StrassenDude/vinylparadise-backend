@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Optional;
 
 @RestController
 //@RequestMapping("/vinyls")
@@ -43,9 +44,9 @@ public class VinylController {
         return vinylRepository.findVinylByName(name);
     }
 
-    @GetMapping("/vinyls/category/{category}")
-    public Iterable<Vinyl> getVinylsByCategory(@PathVariable String category){
-        return vinylRepository.findAll();
+    @GetMapping("/vinyls/category/{categoryName}")
+    public Iterable<Vinyl> getVinylsByCategory(@PathVariable String categoryName){
+        return vinylRepository.findByCategory(categoryName);
     }
 
     @PostMapping("/admin/vinyls/add")
