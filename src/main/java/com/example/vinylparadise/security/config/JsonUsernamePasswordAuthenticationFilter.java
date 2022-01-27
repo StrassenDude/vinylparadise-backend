@@ -23,7 +23,7 @@ public class JsonUsernamePasswordAuthenticationFilter extends UsernamePasswordAu
             requestBody = request.getReader().lines().collect(Collectors.joining());
             ObjectMapper objectMapper = new ObjectMapper();
             LoginRequest loginRequest = objectMapper.readValue(requestBody, LoginRequest.class);
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginRequest.username, loginRequest.password);
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginRequest.userName, loginRequest.password);
 
             return this.getAuthenticationManager().authenticate(authenticationToken);
         } catch (IOException e){
