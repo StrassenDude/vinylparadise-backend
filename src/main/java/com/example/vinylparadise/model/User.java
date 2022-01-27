@@ -34,22 +34,15 @@ public class User {
     @NotBlank
     private String lastName;
 
-    @Range(min = 1, max=150)
-    private int age;
-
-    @NotNull
-    private Date gebDat;
 
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, int age, Date gebDat, String userName, String password) { // TODO: 10.09.2021 Builder machen
+    public User(String firstName, String lastName, String email, String userName, String password) { // TODO: 10.09.2021 Builder machen
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.age = age;
-        this.gebDat = gebDat;
         this.userName = userName;
         this.password = password;
     }
@@ -94,21 +87,6 @@ public class User {
         this.lastName = lastName;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public Date getGebDat() {
-        return gebDat;
-    }
-
-    public void setGebDat(Date gebDat) {
-        this.gebDat = gebDat;
-    }
 
     public String getUserName() {
         return userName;
@@ -135,8 +113,6 @@ public class User {
                 ", role='" + role + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", age=" + age +
-                ", gebDat=" + gebDat +
                 '}';
     }
 }

@@ -91,9 +91,8 @@ public class UserService {
 
 
     public UserResponse getUserResponse(User user) {
-        UserResponse userResponse = new UserResponse(user.getFirstName(), user.getLastName(),
+        return new UserResponse(user.getFirstName(), user.getLastName(),
                 user.getRole(), null);
-        return userResponse;
     }
 
 }

@@ -34,6 +34,11 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @GetMapping("/user") //find all Users
+    public Iterable<User> getAllRegisteredUser() {
+        return userRepository.findAll();
+    }
+
     @GetMapping("/user/id/{userId}") //find User by Id
     public Optional<User> getUserById (@PathVariable Long userId){
         return userRepository.findById(userId);
@@ -44,17 +49,15 @@ public class UserController {
         return userRepository.findByUserName(userName);
     }
 
-    @GetMapping("/user") //find all Users
-    public Iterable<User> getAllRegisteredUser() {
-        return userRepository.findAll();
-    }
 
 
     @PostMapping(path = "/registration")
     public @ResponseBody User createUser(@RequestBody @Valid User user) {
 
         String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+
         user.setPassword(encodedPassword);
+
         userRepository.save(user);
 
         return user;
@@ -66,10 +69,9 @@ public class UserController {
 
         assert user !=null;
         user.setUserName(userDetails.getUserName());
-        user.setPassword(userDetails.getPassword());
+        String encodedPassword = bCryptPasswordEncoder.encode(userDetails.getPassword());
+        user.setPassword(encodedPassword);
         user.setEmail(userDetails.getEmail());
-        user.setAge(userDetails.getAge());
-        user.setGebDat(userDetails.getGebDat());
         user.setRole(userDetails.getRole());
         userRepository.save(user);
         return user;

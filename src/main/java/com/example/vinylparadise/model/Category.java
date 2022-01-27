@@ -19,7 +19,7 @@ public class Category {
     @NotBlank
     private String categoryName;
 
-    //@JsonIgnore
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL)
     private Set<Vinyl> vinyls = new HashSet<Vinyl>();
 

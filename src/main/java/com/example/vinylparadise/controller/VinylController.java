@@ -44,15 +44,9 @@ public class VinylController {
         return vinylRepository.findVinylByName(name);
     }
 
-    @GetMapping("/vinyls/category/{categoryName}")
-    public Iterable<Vinyl> getVinylsByCategory(@PathVariable String categoryName){
-        return vinylRepository.findByCategory(categoryName);
-    }
-
     @PostMapping("/admin/vinyls/add")
     public @ResponseBody Vinyl createVinyl (@RequestBody @Valid Vinyl newVinyl)
     {
-
         vinylRepository.save(newVinyl);
         return newVinyl;
 
@@ -83,18 +77,27 @@ public class VinylController {
         return vinylRepository.save(vinyl);
     }
 
+    @PutMapping("/admin/vinyl/{id}")
+    public Vinyl updateVinyl(@PathVariable @Valid Long id, @RequestBody @Valid Vinyl vinylDetails){
+        Vinyl vinyl = vinylRepository.findVinylById(id);
+
+        assert vinyl != null;
+        vinyl.setName(vinylDetails.getName());
+        vinyl.setPrice((vinylDetails.getPrice()));
+        vinyl.setArtist(vinylDetails.getArtist());
+        vinyl.setTracks(vinylDetails.getTracks());
+        vinyl.setCategory(vinylDetails.getCategory());
+
+        vinylRepository.save(vinyl);
+        return vinyl;
+    }
+
 
     @DeleteMapping("/{artNr}")
     public void deleteVinyl (@PathVariable int artNr){
         //delete Vinyl (admin only)
     }
 
-
-    @GetMapping("/{vinylId}")
-    public ArrayList<Category> getVinylCategories(@PathVariable int vinylId){
-        return null;
-        // returns all categories of one vinyl
-    }
 
 
 

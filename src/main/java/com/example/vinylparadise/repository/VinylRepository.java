@@ -8,5 +8,4 @@ import java.util.Optional;
 public interface VinylRepository extends CrudRepository<Vinyl, Long> {
     Vinyl findVinylById(long id);
     Vinyl findVinylByName(String name);
-    Iterable<Vinyl> findByCategory(String categoryName);
 }
