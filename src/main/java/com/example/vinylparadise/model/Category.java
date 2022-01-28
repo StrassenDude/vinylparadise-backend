@@ -26,18 +26,17 @@ public class Category {
     public Category(){
         super();
     }
-    public Category(@NotNull Long categoryId) {
-        this.categoryId = categoryId;
-    }
 
-    public Category(@NotNull Long categoryId, @NotBlank String categoryName) {
-        this.categoryId = categoryId;
-        this.categoryName = categoryName;
-    }
 
     public Category(@NotBlank String categoryName) {
         this.categoryName = categoryName;
     }
+
+/*    public Category(@NotNull Long categoryId, @NotBlank String categoryName) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+    }*/
+
 
 
     public Long getCategoryId() {
