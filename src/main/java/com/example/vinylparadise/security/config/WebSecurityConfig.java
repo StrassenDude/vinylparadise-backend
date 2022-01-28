@@ -122,8 +122,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/vinyls/category/**").permitAll();
         http
                 .authorizeRequests()
+                .antMatchers("/user/email/**").permitAll();
+        http
+                .authorizeRequests()
                 .antMatchers("/admin/categories/assign/**").permitAll();
-
+        http
+                .authorizeRequests()
+                .antMatchers("/admin/deleteVinyl/**").permitAll();
 
         http    //lock every route
                 .authorizeRequests()

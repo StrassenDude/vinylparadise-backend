@@ -93,9 +93,11 @@ public class VinylController {
     }
 
 
-    @DeleteMapping("/{artNr}")
-    public void deleteVinyl (@PathVariable int artNr){
-        //delete Vinyl (admin only)
+    @DeleteMapping("admin/deleteVinyl/{name}")
+    public void deleteVinyl (@PathVariable @Valid String name){
+        Vinyl vinyl = vinylRepository.findVinylByName(name);
+        vinylRepository.delete(vinyl);
+
     }
 
 

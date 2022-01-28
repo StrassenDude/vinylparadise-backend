@@ -20,7 +20,7 @@ public class CostumUserDetails implements UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities(){     // TODO: 10.09.2021 Wieso ?
+    public Collection<? extends GrantedAuthority> getAuthorities(){
         List<SimpleGrantedAuthority> authorities = new LinkedList<>();
         authorities.add(new SimpleGrantedAuthority(this.user.getRole()));
         return authorities;

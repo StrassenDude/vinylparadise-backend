@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface UserRepository extends CrudRepository<User, Long> {
     User findByUserName(String userName);
+
     List<User> findAll();
+
     User findByUserId(long id);
 
-    User findByEmail (String email);
-
-    User findUserByEmail(String email);
+    User findByEmail(String email);
 
 }

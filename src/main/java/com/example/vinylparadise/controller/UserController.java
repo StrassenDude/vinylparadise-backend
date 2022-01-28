@@ -49,6 +49,10 @@ public class UserController {
         return userRepository.findByUserName(userName);
     }
 
+    @GetMapping("/user/email/{email}") //find User by email
+    public User getUserbyEmail (@PathVariable @Valid String email){
+        return userRepository.findByEmail(email);
+    }
 
 
     @PostMapping(path = "/registration")
@@ -80,9 +84,13 @@ public class UserController {
         //  Update User
     }
 
-    @DeleteMapping("/{userId}")
-    public void deleteUser (@PathVariable int userId){
-        // Delete User
+    @DeleteMapping("/admin/deleteUser/{userName}")         // Delete User
+    public void deleteUser (@PathVariable @Valid String userName){
+        User user = userRepository.findByUserName(userName);
+
+        userRepository.delete(user);
+
+
     }
 
 }
