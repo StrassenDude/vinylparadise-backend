@@ -20,7 +20,7 @@ public class Category {
     private String categoryName;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.PERSIST)
     private Set<Vinyl> vinyls = new HashSet<Vinyl>();
 
     public Category(){

@@ -107,7 +107,6 @@ public class Vinyl {
                 ", category=" + category +
                 '}';
     }
-
 }
 
 

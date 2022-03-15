@@ -8,16 +8,22 @@ import com.example.vinylparadise.security.dto.UserDto;
 import com.example.vinylparadise.security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 
 @RestController
-//@RequestMapping("/user")
-@CrossOrigin(origins = "http://localhost:8080")
+@RequestMapping("/api")
+//@CrossOrigin(origins = "http://localhost:8080")
 public class UserController {
 
 
@@ -54,6 +60,19 @@ public class UserController {
         return userRepository.findByEmail(email);
     }
 
+    @GetMapping("/user/role")
+    public Collection<? extends GrantedAuthority> getCurrentAuthorities() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(auth.getAuthorities());
+        return auth.getAuthorities();
+    }
+
+    @RequestMapping(value = "/user/userName", method = RequestMethod.GET)
+    @ResponseBody
+    public String currentUserName(Authentication authentication) {
+        System.out.println(authentication.getName());
+        return authentication.getName();
+    }
 
     @PostMapping(path = "/registration")
     public @ResponseBody User createUser(@RequestBody @Valid User user) {

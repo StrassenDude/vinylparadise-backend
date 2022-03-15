@@ -10,12 +10,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -72,63 +74,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/home") //todo
-                .permitAll();
-
-        http
-                .authorizeRequests()
-                .antMatchers( "/vinyls")
-                .permitAll();
-
-        http
-                .authorizeRequests()
-                .antMatchers( "/user")
-                .permitAll();
-        http
-                .authorizeRequests()
-                .antMatchers( "/registration")
-                .permitAll();
-        http
-                .authorizeRequests()
-                .antMatchers( "/admin/vinyls/add")
-                .permitAll();
-
-        http
-                .authorizeRequests()
-                .antMatchers( "/admin/categories/add")
-                .permitAll();
-
-
-        http
-                .authorizeRequests()
-                .antMatchers("/h2-console/**").permitAll();
-
-        http
-                .authorizeRequests()
-                .antMatchers("/user/admin/**")
+                .antMatchers("/api/admin/**")
                 .access("hasRole('ROLE_ADMIN')");
 
         http
                 .authorizeRequests()
-                .antMatchers("/user/**").permitAll();
-        http
-                .authorizeRequests()
-                .antMatchers("/vinyls/**").permitAll();
-        http
-                .authorizeRequests()
-                .antMatchers("/categories/**").permitAll();
-        http
-                .authorizeRequests()
-                .antMatchers("/vinyls/category/**").permitAll();
-        http
-                .authorizeRequests()
-                .antMatchers("/user/email/**").permitAll();
-        http
-                .authorizeRequests()
-                .antMatchers("/admin/categories/assign/**").permitAll();
-        http
-                .authorizeRequests()
-                .antMatchers("/admin/deleteVinyl/**").permitAll();
+                .antMatchers("/api/users/**")
+                .access("hasRole('ROLE_USER')");
+
+
+        http.authorizeRequests()
+                .antMatchers("/api/**")
+                .permitAll();
+
 
         http    //lock every route
                 .authorizeRequests()
@@ -145,6 +103,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
 
         http
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+
+        http
                 .logout()
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
@@ -159,6 +121,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     usernamePasswordAuthenticationFilter(),
                     usernamePasswordAuthenticationFilter().getClass()
         );
+        http
+                .sessionManagement().maximumSessions(2);
 
         http
                 .exceptionHandling()
@@ -199,6 +163,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
     }
 
     @Override

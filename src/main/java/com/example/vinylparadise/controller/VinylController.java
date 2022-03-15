@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
-//@RequestMapping("/vinyls")
-@CrossOrigin(origins = "http://localhost:8080")
+@RequestMapping("/api")
+//@CrossOrigin(origins = "http://localhost:8080")
 public class VinylController {
 
 
@@ -93,24 +93,10 @@ public class VinylController {
     }
 
 
-    @DeleteMapping("admin/deleteVinyl/{name}")
+    @DeleteMapping("/admin/deleteVinyl/{name}")
     public void deleteVinyl (@PathVariable @Valid String name){
         Vinyl vinyl = vinylRepository.findVinylByName(name);
         vinylRepository.delete(vinyl);
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
