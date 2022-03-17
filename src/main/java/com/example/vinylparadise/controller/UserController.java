@@ -116,7 +116,6 @@ public class UserController {
 
         userRepository.delete(user);
 
-
     }
 
 }
