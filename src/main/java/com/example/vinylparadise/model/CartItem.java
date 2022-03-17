@@ -24,7 +24,7 @@ public class CartItem {
     @JoinColumn(name = "id")
     private Vinyl vinyl;
 
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

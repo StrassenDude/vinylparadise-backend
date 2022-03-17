@@ -63,8 +63,12 @@ public class UserController {
     @GetMapping("/user/role")
     public Collection<? extends GrantedAuthority> getCurrentAuthorities() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(auth.getAuthorities());
         return auth.getAuthorities();
+    }
+
+    @GetMapping("/user/name")
+    public Object getCurrentName() {
+        return SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
     }
 
     @RequestMapping(value = "/user/userName", method = RequestMethod.GET)
@@ -97,6 +101,8 @@ public class UserController {
         user.setPassword(encodedPassword);
         user.setEmail(userDetails.getEmail());
         user.setRole(userDetails.getRole());
+        user.setFirstName(userDetails.getFirstName());
+        user.setLastName(userDetails.getLastName());
         userRepository.save(user);
         return user;
 
