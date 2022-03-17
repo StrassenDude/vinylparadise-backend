@@ -46,8 +46,8 @@ public class UserController {
     }
 
     @GetMapping("/user/id/{userId}") //find User by Id
-    public Optional<User> getUserById (@PathVariable Long userId){
-        return userRepository.findById(userId);
+    public User getUserById (@PathVariable Long userId){
+        return userRepository.findByUserId(userId);
     }
 
     @GetMapping("/user/userName/{userName}") //find User by userName
@@ -82,6 +82,7 @@ public class UserController {
         user.setPassword(encodedPassword);
 
         userRepository.save(user);
+        System.out.println(user);
 
         return user;
     }

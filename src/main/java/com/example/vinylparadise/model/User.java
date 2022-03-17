@@ -14,7 +14,7 @@ public class User {
 
     @GeneratedValue (strategy = GenerationType.SEQUENCE)
     @Id
-    private long userId;
+    private Long userId;
 
     @Column(nullable = false, unique = true)
     private String userName;
@@ -28,7 +28,7 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private String role = "ROLE_USER"; // TODO: 10.09.2021 get&set gebraucht?
+    private String role = "ROLE_USER";
 
     @NotBlank
     private String firstName;
@@ -36,17 +36,43 @@ public class User {
     @NotBlank
     private String lastName;
 
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id")
+    private Cart cart = new Cart();
+
+
+
 
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String userName, String password) { // TODO: 10.09.2021 Builder machen
+    public User(String firstName, String lastName, String email, String userName, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.userName = userName;
         this.password = password;
+
+    }
+
+    public User(String userName, String email, String password, String role, String firstName, String lastName, Cart cart) {
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.cart = cart;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public String getRole() {
@@ -57,7 +83,7 @@ public class User {
         this.role = role;
     }
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
@@ -69,7 +95,7 @@ public class User {
         this.email = email;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

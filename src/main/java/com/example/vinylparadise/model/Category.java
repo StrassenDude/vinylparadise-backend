@@ -19,7 +19,7 @@ public class Category {
     @NotBlank
     private String categoryName;
 
-    @JsonIgnore
+    //@JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.PERSIST)
     private Set<Vinyl> vinyls = new HashSet<Vinyl>();
 
@@ -32,10 +32,6 @@ public class Category {
         this.categoryName = categoryName;
     }
 
-/*    public Category(@NotNull Long categoryId, @NotBlank String categoryName) {
-        this.categoryId = categoryId;
-        this.categoryName = categoryName;
-    }*/
 
 
 

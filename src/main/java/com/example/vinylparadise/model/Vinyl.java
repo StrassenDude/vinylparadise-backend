@@ -1,9 +1,13 @@
 package com.example.vinylparadise.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Vinyl {
@@ -29,23 +33,29 @@ public class Vinyl {
     private int tracks;
 
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "category_Id")
     private Category category;
 
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "vinyl", cascade = CascadeType.PERSIST)
+    private Set<CartItem> cartItem = new HashSet<CartItem>();
+
+
+
 
 
     public Vinyl() {
+        super();
     }
 
     public Vinyl(String name, double price, String artist, int tracks, Category category) {
-        //this.id = id;
         this.name = name;
         this.price = price;
         this.artist = artist;
         this.tracks = tracks;
         this.category = category;
-
     }
 
     public Category getCategory() {
@@ -104,7 +114,6 @@ public class Vinyl {
                 ", price=" + price +
                 ", artist='" + artist + '\'' +
                 ", tracks=" + tracks +
-                ", category=" + category +
                 '}';
     }
 }

@@ -36,6 +36,7 @@ public class VinylController {
 
     @GetMapping("/vinyls/id/{id}")
     public Vinyl getVinylById(@PathVariable Long id){
+        Vinyl vinyl = vinylRepository.findVinylById(id);
         return vinylRepository.findVinylById(id);
     }
 
@@ -49,8 +50,6 @@ public class VinylController {
     {
         vinylRepository.save(newVinyl);
         return newVinyl;
-
-        //create new Vinyl (Admin only)
     }
 
 
@@ -66,6 +65,8 @@ public class VinylController {
     }
 
     // assign product to category by name
+
+
     @PutMapping("/admin/categories/assign/{categoryName}/{name}")
     public Vinyl assignVinyltoCategory(@PathVariable String name, @PathVariable String categoryName) {
         Category category = categoryRepository.findByCategoryName(categoryName);

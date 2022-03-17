@@ -39,8 +39,6 @@ public class CatagoryController {
     @PostMapping("/admin/categories/add")
     public @ResponseBody Category createCatagory (@RequestBody @Valid Category newCatagory){
         categoryRepository.save(newCatagory);
-        System.out.println(newCatagory);
-
         return newCatagory;
         // create new Catagory
     }
