@@ -76,6 +76,14 @@ public class CartController {
 
     }
 
+    @DeleteMapping("/user/deleteCartItem/{itemId}")
+    public void deleteCartItem(@PathVariable Long itemId){
+        CartItem cartItem = cartItemRepository.findByCartItemId(itemId);
+        cartItemRepository.delete(cartItem);
+    }
+
+
+
 
     public List<Vinyl> getAllVinyls(List<CartItem> itemsAlreadyExist) {
         List<Vinyl> vinyls = new ArrayList<>();

@@ -15,6 +15,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.spring.web.json.Json;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -64,11 +65,6 @@ public class UserController {
     public Collection<? extends GrantedAuthority> getCurrentAuthorities() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return auth.getAuthorities();
-    }
-
-    @GetMapping("/user/name")
-    public Object getCurrentName() {
-        return SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
     }
 
     @RequestMapping(value = "/user/userName", method = RequestMethod.GET)
