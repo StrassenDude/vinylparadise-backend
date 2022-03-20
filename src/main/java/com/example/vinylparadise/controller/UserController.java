@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
 
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,8 +28,7 @@ import java.util.Optional;
 //@CrossOrigin(origins = "http://localhost:8080")
 public class UserController {
 
-
-
+    @Autowired
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -67,12 +67,14 @@ public class UserController {
         return auth.getAuthorities();
     }
 
-    @RequestMapping(value = "/user/userName", method = RequestMethod.GET)
-    @ResponseBody
-    public String currentUserName(Authentication authentication) {
-        System.out.println(authentication.getName());
-        return authentication.getName();
+    @GetMapping("/user/userName")
+    public String getcurrentUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth.getName();
     }
+
+
+
 
     @PostMapping(path = "/registration")
     public @ResponseBody User createUser(@RequestBody @Valid User user) {

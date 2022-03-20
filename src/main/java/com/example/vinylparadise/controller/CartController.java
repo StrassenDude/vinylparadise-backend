@@ -58,26 +58,45 @@ public class CartController {
                              @PathVariable Long userId,
                              @PathVariable Long cartId
     ){
+
         User user = userController.getUserById(userId);
         Vinyl vinyl = vinylController.getVinylById(vinylId);
-
         Cart cart = getCartById(cartId);
 
+        List<CartItem> currentCart = cart.getCartItems();
         CartItem newItem = new CartItem(cart,vinyl,user);
 
-        cartItemRepository.save(newItem);
+        if(currentCart.size() > 0){
+            System.out.println(getAllVinyls(currentCart));
+            for (CartItem cartItem : currentCart) {
+                  if(cartItem.getVinyl().getName().equals(newItem.getVinyl().getName())){
+                      cartItem.setQuantity(cartItem.getQuantity() + 1);
+                      newItem = cartItem;
+                      cartItemRepository.save(newItem);
+                      currentCart.add(newItem);
+                      cart.setCartItems(currentCart);
+                      cartRepository.save(cart);
+                  }
+                  else{
 
-
-        List<CartItem> currentCart = cart.getCartItems();
-
-        currentCart.add(newItem);
-
-
-        cart.setCartItems(currentCart);
-
-        cartRepository.save(cart);
-
-
+                      cartItemRepository.save(newItem);                  
+                      currentCart.add(newItem);                          
+                      cart.setCartItems(currentCart);                    
+                      cartRepository.save(cart);                         
+                                                                         
+                  }
+            }
+            
+            
+        }
+        else {
+                   cartItemRepository.save(newItem);                        
+                   currentCart.add(newItem);                                
+                   cart.setCartItems(currentCart);                          
+                   cartRepository.save(cart);                               
+            
+            
+        }
         return cart;
 
     }
