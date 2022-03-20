@@ -64,41 +64,40 @@ public class CartController {
         Cart cart = getCartById(cartId);
 
         List<CartItem> currentCart = cart.getCartItems();
-        CartItem newItem = new CartItem(cart,vinyl,user);
+        List<Vinyl> currentVinyls = getAllVinyls(currentCart);
 
-        if(currentCart.size() > 0){
-            System.out.println(getAllVinyls(currentCart));
-            for (CartItem cartItem : currentCart) {
-                  if(cartItem.getVinyl().getName().equals(newItem.getVinyl().getName())){
-                      cartItem.setQuantity(cartItem.getQuantity() + 1);
-                      newItem = cartItem;
-                      cartItemRepository.save(newItem);
-                      currentCart.add(newItem);
-                      cart.setCartItems(currentCart);
-                      cartRepository.save(cart);
-                  }
-                  else{
+        List<CartItem> newList = new ArrayList<>();
 
-                      cartItemRepository.save(newItem);                  
-                      currentCart.add(newItem);                          
-                      cart.setCartItems(currentCart);                    
-                      cartRepository.save(cart);                         
-                                                                         
-                  }
-            }
-            
-            
+
+        if(currentCart.size() == 0) {
+            CartItem newItem = new CartItem(cart, vinyl, user);
+            cartItemRepository.save(newItem);
+            currentCart.add(newItem);
+            cart.setCartItems(currentCart);
+            cartRepository.save(cart);
         }
-        else {
-                   cartItemRepository.save(newItem);                        
-                   currentCart.add(newItem);                                
-                   cart.setCartItems(currentCart);                          
-                   cartRepository.save(cart);                               
-            
-            
+        else{
+            CartItem newItem = new CartItem(cart, vinyl, user);
+
+            if(!currentVinyls.contains(vinyl)){
+                cartItemRepository.save(newItem);
+                currentCart.add(newItem);
+                cart.setCartItems(currentCart);
+                cartRepository.save(cart);
+            }
+            else{
+                for(CartItem cartItem : currentCart){
+                    if(cartItem.getVinyl() == vinyl){
+                        cartItem.setQuantity(cartItem.getQuantity() + 1);
+                        cartItemRepository.save(cartItem);
+                        cart.setCartItems(currentCart);
+                        cartRepository.save(cart);
+                    }
+                }
+            }
+
         }
         return cart;
-
     }
 
     @PutMapping("/user/updateQuantity/{cartItemId}/{newQuantity}")
