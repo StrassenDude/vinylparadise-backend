@@ -8,6 +8,7 @@ import com.example.vinylparadise.model.Vinyl;
 import com.example.vinylparadise.repository.CartItemRepository;
 import com.example.vinylparadise.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -42,6 +43,11 @@ public class CartController {
         return cartItemRepository.findAll();
     }
 
+    @GetMapping("/cartItem/{cartItemId}")
+    public CartItem getCartItemById (@PathVariable Long cartItemId){
+        return cartItemRepository.findByCartItemId(cartItemId);
+    }
+
     @GetMapping("/cartItems/{userId}")
     public Iterable<CartItem> getAllItems(@PathVariable Long userId){
         return cartItemRepository.findByUser(userId);
@@ -74,6 +80,13 @@ public class CartController {
 
         return cart;
 
+    }
+
+    @PutMapping("/user/updateQuantity/{cartItemId}/{newQuantity}")
+    public void updateQuantity(@PathVariable Long cartItemId, @PathVariable int newQuantity){
+        CartItem cartItem = cartItemRepository.findByCartItemId(cartItemId);
+        cartItem.setQuantity(newQuantity);
+        cartItemRepository.save(cartItem);
     }
 
     @DeleteMapping("/user/deleteCartItem/{itemId}")
