@@ -27,13 +27,13 @@ public class CatagoryController {
     @GetMapping("/categories/categoryName/{categoryName}")
     public Category getCatagoriesbyCategoryName(@PathVariable String categoryName ){
         return categoryRepository.findByCategoryName(categoryName);
-        // returns one spezific Category by name
+        // returns one specific Category by name
     }
 
     @GetMapping("/categories/categoryId/{categoryId}")
     public Category getCategoriesByCategoryId(@PathVariable Long categoryId ){
         return categoryRepository.findByCategoryId(categoryId);
-        // returns one spezific Category by id
+        // returns one specific Category by id
     }
 
     @PostMapping("/admin/categories/add")

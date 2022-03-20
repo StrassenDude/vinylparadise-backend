@@ -32,8 +32,11 @@ public class Vinyl {
     @Column(nullable = false)
     private int tracks;
 
+    @Column
+    private String imgRef;
 
-    @JsonIgnore
+
+
     @ManyToOne
     @JoinColumn(name = "category_Id")
     private Category category;
@@ -50,12 +53,21 @@ public class Vinyl {
         super();
     }
 
-    public Vinyl(String name, double price, String artist, int tracks, Category category) {
+    public Vinyl(String name, double price, String artist, int tracks,String imgRef, Category category) {
         this.name = name;
         this.price = price;
         this.artist = artist;
         this.tracks = tracks;
+        this.imgRef = imgRef;
         this.category = category;
+    }
+
+    public String getImgRef() {
+        return imgRef;
+    }
+
+    public void setImgRef(String imgRef) {
+        this.imgRef = imgRef;
     }
 
     public Category getCategory() {

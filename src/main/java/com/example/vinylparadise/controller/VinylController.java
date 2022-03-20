@@ -88,6 +88,7 @@ public class VinylController {
         vinyl.setArtist(vinylDetails.getArtist());
         vinyl.setTracks(vinylDetails.getTracks());
         vinyl.setCategory(vinylDetails.getCategory());
+        vinyl.setImgRef(vinylDetails.getImgRef());
 
         vinylRepository.save(vinyl);
         return vinyl;

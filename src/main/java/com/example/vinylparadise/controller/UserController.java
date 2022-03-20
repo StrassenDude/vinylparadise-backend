@@ -88,7 +88,7 @@ public class UserController {
     }
 
     @PutMapping("/user/{userId}")
-    public User updateUser (@PathVariable @Valid int userId, @Valid @RequestBody User userDetails){
+    public User updateUser (@PathVariable @Valid Long userId, @Valid @RequestBody User userDetails){
         User user = userRepository.findByUserId(userId);
 
         assert user !=null;
@@ -106,12 +106,10 @@ public class UserController {
         //  Update User
     }
 
-    @DeleteMapping("/admin/deleteUser/{userName}")         // Delete User
-    public void deleteUser (@PathVariable @Valid String userName){
-        User user = userRepository.findByUserName(userName);
-
+    @DeleteMapping("/admin/deleteUser/{userId}")
+    public void deleteUser (@PathVariable @Valid Long userId){
+        User user = userRepository.findByUserId(userId);
         userRepository.delete(user);
-
     }
 
 }
