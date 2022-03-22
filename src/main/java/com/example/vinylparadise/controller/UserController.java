@@ -73,9 +73,6 @@ public class UserController {
         return auth.getName();
     }
 
-
-
-
     @PostMapping(path = "/registration")
     public @ResponseBody User createUser(@RequestBody @Valid User user) {
 
@@ -103,8 +100,6 @@ public class UserController {
         user.setLastName(userDetails.getLastName());
         userRepository.save(user);
         return user;
-
-
         //  Update User
     }
 
@@ -113,5 +108,4 @@ public class UserController {
         User user = userRepository.findByUserId(userId);
         userRepository.delete(user);
     }
-
 }

@@ -8,13 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
-
 
     public UserService(UserRepository userRepository) {
         super();
@@ -57,21 +57,31 @@ public class UserService {
         } else {
             try {
                 User user = new User();
-                user.setEmail(userDto.email);
-                user.setLastName(userDto.lastname);
-                user.setFirstName(userDto.firstName);
-                user.setUserName(userDto.userName);
-                BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-                String encodedPassword = passwordEncoder.encode(userDto.password);
-                user.setPassword(encodedPassword);
-                userRepository.save(user);
-                UserResponse userResponse = getUserResponse(user);
-                return new ResponseEntity<>(userResponse, HttpStatus.OK);
+                return updateOrSaveUserDTO(userDto, user);
             } catch (Exception e) {
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e.getCause());
             }
         }
     }
+
+    public ResponseEntity<UserResponse> updateUser(String userName, UserDto userDto){
+        User user = userRepository.findByUserName(userName);
+        return updateOrSaveUserDTO(userDto, user);
+    }
+
+    private ResponseEntity<UserResponse> updateOrSaveUserDTO(UserDto userDto, User user) {
+        user.setEmail(userDto.email);
+        user.setLastName(userDto.lastname);
+        user.setFirstName(userDto.firstName);
+        user.setUserName(userDto.userName);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(userDto.password);
+        user.setPassword(encodedPassword);
+        userRepository.save(user);
+        UserResponse userResponse = getUserResponse(user);
+        return new ResponseEntity<>(userResponse, HttpStatus.OK);
+    }
+
 
     public ResponseEntity<UserResponse> findUserByUsername(String username) {
         User user = userRepository.findByUserName(username);
@@ -87,12 +97,8 @@ public class UserService {
         }
     }
 
-
-
-
     public UserResponse getUserResponse(User user) {
         return new UserResponse(user.getFirstName(), user.getLastName(),
                 user.getRole(), null);
     }
-
 }

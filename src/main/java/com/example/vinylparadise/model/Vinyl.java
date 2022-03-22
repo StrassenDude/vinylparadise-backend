@@ -35,8 +35,6 @@ public class Vinyl {
     @Column
     private String imgRef;
 
-
-
     @ManyToOne
     @JoinColumn(name = "category_Id")
     private Category category;
@@ -44,10 +42,6 @@ public class Vinyl {
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "vinyl", cascade = CascadeType.PERSIST)
     private Set<CartItem> cartItem = new HashSet<CartItem>();
-
-
-
-
 
     public Vinyl() {
         super();
@@ -129,7 +123,3 @@ public class Vinyl {
                 '}';
     }
 }
-
-
-
-

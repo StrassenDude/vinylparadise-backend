@@ -23,7 +23,6 @@ public class CatagoryController {
         // returns a List of all catagories available
     }
 
-
     @GetMapping("/categories/categoryName/{categoryName}")
     public Category getCatagoriesbyCategoryName(@PathVariable String categoryName ){
         return categoryRepository.findByCategoryName(categoryName);
@@ -60,11 +59,4 @@ public class CatagoryController {
 
 
     }
-
-
-
-
-
-
-
 }

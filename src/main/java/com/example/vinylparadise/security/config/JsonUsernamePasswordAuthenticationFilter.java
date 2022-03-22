@@ -28,8 +28,6 @@ public class JsonUsernamePasswordAuthenticationFilter extends UsernamePasswordAu
             return this.getAuthenticationManager().authenticate(authenticationToken);
         } catch (IOException e){
             throw new InternalAuthenticationServiceException("Object not mapped", e);
-
         }
-
     }
 }

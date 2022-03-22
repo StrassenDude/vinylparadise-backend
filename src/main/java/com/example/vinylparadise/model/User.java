@@ -1,13 +1,8 @@
 package com.example.vinylparadise.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.validator.constraints.Range;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 @Entity
 public class User {
@@ -40,10 +35,6 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
     private Cart cart = new Cart();
-
-
-
-
 
     public User() {
     }
@@ -114,7 +105,6 @@ public class User {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
 
     public String getUserName() {
         return userName;

@@ -9,5 +9,4 @@ import java.util.List;
 public interface CartItemRepository extends CrudRepository<CartItem, Long> {
     Iterable<CartItem> findByUser(Long userId);
     CartItem findByCartItemId(Long itemId);
-
 }

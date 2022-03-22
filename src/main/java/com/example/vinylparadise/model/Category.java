@@ -27,12 +27,14 @@ public class Category {
         super();
     }
 
+    public Category(Long categoryId, String categoryName) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+    }
 
     public Category(@NotBlank String categoryName) {
         this.categoryName = categoryName;
     }
-
-
 
 
     public Long getCategoryId() {

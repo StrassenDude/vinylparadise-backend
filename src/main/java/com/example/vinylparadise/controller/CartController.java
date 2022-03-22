@@ -113,9 +113,6 @@ public class CartController {
         cartItemRepository.delete(cartItem);
     }
 
-
-
-
     public List<Vinyl> getAllVinyls(List<CartItem> itemsAlreadyExist) {
         List<Vinyl> vinyls = new ArrayList<>();
         for (CartItem cartItem : itemsAlreadyExist) {
@@ -124,7 +121,4 @@ public class CartController {
         }
         return vinyls;
     }
-
-
-
 }

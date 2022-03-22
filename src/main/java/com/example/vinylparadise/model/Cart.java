@@ -12,16 +12,12 @@ import java.util.Set;
 @Entity
 public class Cart {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long cartId;
 
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cart", cascade = CascadeType.PERSIST)
     private List<CartItem> cartItems = new ArrayList<>();
-
-
 
     public Cart(Long cartId, List<CartItem> cartItems) {
         super();

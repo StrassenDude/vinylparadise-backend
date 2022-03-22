@@ -14,9 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-//@CrossOrigin(origins = "http://localhost:8080")
 public class VinylController {
-
 
     @Autowired
     private VinylRepository vinylRepository;
@@ -52,7 +50,6 @@ public class VinylController {
         return newVinyl;
     }
 
-
     // assign product to category by id
     @PutMapping("/admin/categories/id/{categoryId}/vinyls/{id}")
     public Vinyl assignVinyltoCategory(@PathVariable Long id, @PathVariable Long categoryId) {
@@ -65,7 +62,6 @@ public class VinylController {
     }
 
     // assign product to category by name
-
 
     @PutMapping("/admin/categories/assign/{categoryName}/{name}")
     public Vinyl assignVinyltoCategory(@PathVariable String name, @PathVariable String categoryName) {
@@ -87,18 +83,16 @@ public class VinylController {
         vinyl.setPrice((vinylDetails.getPrice()));
         vinyl.setArtist(vinylDetails.getArtist());
         vinyl.setTracks(vinylDetails.getTracks());
-        vinyl.setCategory(vinylDetails.getCategory());
         vinyl.setImgRef(vinylDetails.getImgRef());
+        vinyl.setCategory(vinylDetails.getCategory());
 
         vinylRepository.save(vinyl);
         return vinyl;
     }
 
-
-    @DeleteMapping("/admin/deleteVinyl/{name}")
-    public void deleteVinyl (@PathVariable @Valid String name){
-        Vinyl vinyl = vinylRepository.findVinylByName(name);
+    @DeleteMapping("/admin/deleteVinyl/{id}")
+    public void deleteVinyl (@PathVariable @Valid Long id){
+        Vinyl vinyl = vinylRepository.findVinylById(id);
         vinylRepository.delete(vinyl);
-
     }
 }

@@ -17,7 +17,6 @@ public class SwaggerConfig {
 
     // SWAGGER URL: http://localhost:8080/swagger-ui.html
 
-
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).select()
@@ -27,19 +26,8 @@ public class SwaggerConfig {
                 .apiInfo(getApiInfo());
     }
 
-    /*@Bean
-    public Docket productApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(getApiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.example.gamazone_backend"))
-                .paths(PathSelectors.any())
-                .build();
-    }*/
-
-    // TODO: 22.01.2022  change contact information
     private ApiInfo getApiInfo() {
-        Contact contact = new Contact("Mr J and Mr G", "http://www.google.com", "Support@webshop.com");
+        Contact contact = new Contact("Mr M and Mr S", "http://www.google.com", "Support@webshop.com");
         return new ApiInfoBuilder()
                 .title("Webshop API")
                 .description("Documentation")

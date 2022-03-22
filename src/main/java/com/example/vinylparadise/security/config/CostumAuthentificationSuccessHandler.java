@@ -17,6 +17,4 @@ public class CostumAuthentificationSuccessHandler extends SimpleUrlAuthenticatio
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, org.springframework.security.core.Authentication authentication) throws IOException, ServletException {
         clearAuthenticationAttributes(request);
     }
-
-
 }
